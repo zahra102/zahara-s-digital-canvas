@@ -93,9 +93,21 @@ export function Projects() {
 
       <div className="mt-8 grid gap-8 lg:grid-cols-2">
         {SECONDARY.map((p, i) => (
-          <Reveal key={p.title} delay={i * 90} className="group h-full">
-            <article className="surface-card flex h-full flex-col overflow-hidden">
-              <div className="border-b border-border bg-elevated/40 p-5">
+          <Reveal
+            key={p.title}
+            delay={i * 90}
+            className={`group h-full${i === 2 ? " lg:col-span-2" : ""}`}
+          >
+            <article
+              className={`surface-card flex h-full flex-col overflow-hidden${
+                i === 2 ? " lg:grid lg:grid-cols-[1fr_1fr]" : ""
+              }`}
+            >
+              <div
+                className={`border-b border-border bg-elevated/40 p-5${
+                  i === 2 ? " lg:order-2 lg:border-b-0 lg:border-l" : ""
+                }`}
+              >
                 <div className="h-44">
                   <p.Visual />
                 </div>
