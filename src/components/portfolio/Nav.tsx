@@ -17,9 +17,14 @@ export function Nav() {
   const [active, setActive] = useState("home");
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 12);
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(max > 0 ? Math.min(100, (window.scrollY / max) * 100) : 0);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -42,6 +47,8 @@ export function Nav() {
     return () => io.disconnect();
   }, []);
 
+  const activeIndex = Math.max(0, LINKS.findIndex((link) => link.id === active));
+
   return (
     <header
       className={cn(
@@ -51,6 +58,7 @@ export function Nav() {
           : "border-b border-transparent",
       )}
     >
+      <div aria-hidden="true" className="scroll-progress" style={{ width: `${progress}%` }} />
       <div className="mx-auto grid w-full max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-4 sm:px-8">
         <a href="#home" className="flex min-w-0 items-center gap-2.5">
           <span
@@ -62,7 +70,15 @@ export function Nav() {
           </span>
         </a>
 
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav className="relative hidden items-center gap-1 lg:flex">
+          <span
+            aria-hidden="true"
+            className="nav-glider pointer-events-none absolute bottom-0 h-px rounded-full accent-rule transition-all duration-500"
+            style={{
+              width: `calc(${100 / LINKS.length}% - 0.5rem)`,
+              left: `calc(${activeIndex * 100 / LINKS.length}% + 0.25rem)`,
+            }}
+          />
           {LINKS.map((l) => (
             <a
               key={l.id}
@@ -75,13 +91,6 @@ export function Nav() {
               )}
             >
               {l.label}
-              <span
-                aria-hidden="true"
-                className={cn(
-                  "absolute inset-x-3 -bottom-0.5 h-px accent-rule transition-opacity duration-300",
-                  active === l.id ? "opacity-100" : "opacity-0",
-                )}
-              />
             </a>
           ))}
         </nav>

@@ -37,6 +37,11 @@ export function Reveal({
   return (
     <Comp
       ref={ref}
+      onPointerMove={(e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        e.currentTarget.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+        e.currentTarget.style.setProperty("--my", `${e.clientY - rect.top}px`);
+      }}
       data-visible={visible}
       style={{ transitionDelay: `${delay}ms` }}
       className={cn("reveal", className)}
@@ -80,7 +85,7 @@ export function SectionHeader({
 
 export function Tag({ children }: { children: ReactNode }) {
   return (
-    <span className="rounded-full border border-border bg-elevated/60 px-3 py-1 font-mono text-[0.72rem] tracking-wide text-muted-foreground transition-colors duration-300 group-hover:border-border-strong group-hover:text-foreground">
+    <span className="skill-tag rounded-full border border-border bg-elevated/60 px-3 py-1 font-mono text-[0.72rem] tracking-wide text-muted-foreground transition-all duration-300 group-hover:border-border-strong group-hover:text-foreground">
       {children}
     </span>
   );

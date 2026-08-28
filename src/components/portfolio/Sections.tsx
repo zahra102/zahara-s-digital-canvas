@@ -19,11 +19,12 @@ export function Hero() {
       />
       <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
         <Reveal>
-          <p className="font-mono text-[0.7rem] tracking-[0.2em] text-rose sm:text-xs">
+          <p className="hero-eyebrow font-mono text-[0.7rem] tracking-[0.2em] text-rose sm:text-xs">
             COMPUTER SCIENCE <span className="text-accent">•</span> AI/ML{" "}
             <span className="text-accent">•</span> FULL-STACK DEVELOPMENT
           </p>
 
+          <div className="hero-copy">
           <h1 className="mt-6 font-display text-[2.6rem] leading-[1.05] font-semibold tracking-tight sm:text-6xl lg:text-[4.2rem]">
             {"Hi, I\u2019m Zahra \u{1F44B}"}
           </h1>
@@ -37,8 +38,9 @@ export function Hero() {
             intelligent, practical, and user-focused software with AI, full-stack
             development, and modern technologies.
           </p>
+          </div>
 
-          <div className="mt-9 flex flex-wrap items-center gap-3">
+          <div className="hero-actions mt-9 flex flex-wrap items-center gap-3">
             <a
               href="#projects"
               className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all duration-300 hover:shadow-[var(--shadow-accent)] hover:brightness-110"
@@ -75,10 +77,17 @@ export function SocialLinks({ compact = false }: { compact?: boolean }) {
     "inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors duration-300 hover:text-rose";
   return (
     <div className="flex flex-wrap items-center gap-4">
-      <span className={cls} title="GitHub">
+      <a
+        className={cls}
+        href="https://github.com/zahra102/zahara-s-digital-canvas"
+        target="_blank"
+        rel="noreferrer"
+        title="GitHub"
+        aria-label="GitHub"
+      >
         <Github className="h-4 w-4" />
         {compact ? null : <span>GitHub</span>}
-      </span>
+      </a>
       <span className={cls} title="LinkedIn">
         <Linkedin className="h-4 w-4" />
         {compact ? null : <span>LinkedIn</span>}
